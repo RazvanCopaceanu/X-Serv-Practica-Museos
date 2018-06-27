@@ -16,6 +16,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from gestion import views
 from django.contrib.auth.views import login, logout
+from django.views.static import serve
+from museos import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
