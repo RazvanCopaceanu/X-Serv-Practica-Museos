@@ -64,7 +64,7 @@ def parser():
 def main(request):
     template = get_template("terrafirma/index.html")
     museos = ""
-    lista_museos = Museos.objects.all()
+    lista_museos = Museo.objects.all()
     if len(lista_museos) == 0:
         if request.method == 'GET':
             boton = "<form method = 'POST'><button type='submit' "
@@ -133,22 +133,22 @@ def formulariolista(request, resource):
     if str(request.user) == str(resource):
         formulario = "<form id='formTitulo' action='/" + str(resource)
         formulario += "' method='POST'>Introduce un nuevo titulo para "
-        formulario += "tu lista personal: <br><input type='text' "
+        formulario += "la pagina personal: <br><input type='text' "
         formulario += "name='Titulo'><input type='submit'"
         formulario += " value='Enviar'></form>"
         formulario += "<form id='formTitulo' action='/" + str(resource)
         formulario += "' method='POST'>Introduce un nuevo color de fondo "
-        formulario += "para tu lista personal: <br><input type='text' "
+        formulario += "para la pagina personal: <br><input type='text' "
         formulario += "name='Color'><input type='submit'"
         formulario += " value='Enviar'></form>"
         formulario += "<form id='formTitulo' action='/" + str(resource)
         formulario += "' method='POST'>Introduce un nuevo tamaño de letra "
-        formulario += "para tu lista personal: <br><input type='text' "
+        formulario += "para la pagina personal: <br><input type='text' "
         formulario += "name='Size'><input type='submit'"
         formulario += " value='Enviar'></form>"
     else:
         formulario = ""
-return (formulario)
+    return (formulario)
 
 
 def museoselegidos(request, resource):
@@ -270,7 +270,7 @@ def museums(request):
             formulario += "<option value='" + element + "'>"
             formulario += element + "</option>"
         formulario += "</select><input type='submit' value='Enviar'></form>"
-        response = formulario + museos
+        response = formulario + museums
     elif request.method == 'POST':
         distrito = request.body.decode('utf-8').split("=")[1]
         lista_museos = Museo.objects.all().filter(distrito=distrito)
