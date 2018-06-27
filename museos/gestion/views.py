@@ -293,5 +293,51 @@ def museums(request):
     template = get_template("terrafirma/museos.html")
     c = RequestContext(request, {'Museums': formulario + museums})
     response = template.render(c)
+    return HttpResponse(response, status=200)
+
+
+
+@csrf_exempt
+def museum(request, resource):
+    response = ""
+    template = get_template("terrafirma/museo.html")
+    if request.method == 'GET':
+        museo = Museo.objects.get(id=resource)
+        comentarios = Comentarios.objects.all().filter(museo=museo)
+    elif request.method == 'POST':
+        opcion = request.body.decode('utf-8').split("=")[0]
+        if opcion == 'Add':
+            museo = Museo.objects.get(id=resource)
+            elegido = Elegidos()
+            elegido.museo = museo
+            usuario = User.objects.get(username=request.user)
+            elegido.usuario = usuario
+            today = datetime.date.today()
+            elegido.fecha = today
+            elegidos = Elegidos.objects.filter(usuario=usuario)
+            encontrado = False
+            for a in elegidos:
+                if a.museo == museo:
+                    encontrado = True
+            if encontrado is False:
+                elegido.save()
+            comentarios = Comentarios.objects.all().filter(museo=museo)
+        elif opcion == 'Comentario':
+            museo = Museo.objects.get(id=resource)
+            comentario = Comentarios()
+            comentario.museo = museo
+            comentario.texto = request.body.decode('utf-8').split("=")[1].replace("+", " ")
+            comentario.save()
+            museo.n_coment = museo.n_coment + 1
+            museo.save()
+            comentarios = Comentarios.objects.all().filter(museo=museo)
+    else:
+        template = get_template("terrafirma/error.html")
+        c = RequestContext(request, {'error': "Method not allowed"})
+        response = template.render(c)
+        return HttpResponse(response, status=405)
+    c = RequestContext(request, {'museo': museo,
+                       'comentarios': comentarios})
+    response = template.render(c)
 return HttpResponse(response, status=200)
 
