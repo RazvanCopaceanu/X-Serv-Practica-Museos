@@ -296,7 +296,6 @@ def museums(request):
     return HttpResponse(response, status=200)
 
 
-
 @csrf_exempt
 def museum(request, resource):
     response = ""
@@ -339,5 +338,135 @@ def museum(request, resource):
     c = RequestContext(request, {'museo': museo,
                        'comentarios': comentarios})
     response = template.render(c)
-return HttpResponse(response, status=200)
+    return HttpResponse(response, status=200)
 
+
+def xml(request, resource):
+    try:
+        usuario = User.objects.get(username=resource)
+    except User.DoesNotExist:
+        template = get_template('error.html')
+        return HttpResponse(plantilla.render(), status=404)
+    template = get_template('xml/canales_usuario.xml')
+    elegidos = Elegidos.objects.filter(usuario=usuario)
+    c = RequestContext(request, {'usuario': usuario, 'elegidos': elegidos})
+    response = template.render(c)
+    return HttpResponse(response, status=200, content_type="text/xml")
+
+
+def xmlmain(request):
+    template = get_template('xml/canales_main.xml')
+    lista_museos = Museo.objects.all().order_by('-n_coment')
+    lista_museos = lista_museos.exclude(n_coment=0)
+    lista_museos = lista_museos.filter(accesibilidad=0)
+    lista_museos = lista_museos[0:5]
+    c = RequestContext(request, {'museos': lista_museos})
+    response = template.render(c)
+    return HttpResponse(response, status=200, content_type="text/xml")
+
+
+
+def json(request):
+    template = get_template('json/canales_main.json')
+    lista_museos = Museo.objects.all().order_by('-n_coment')
+    lista_museos = lista_museos.exclude(n_coment=0)
+    lista_museos = lista_museos.filter(accesibilidad=0)
+    lista_museos = lista_museos[0:5]
+    c = RequestContext(request, {'museos': lista_museos})
+    response = template.render(c)
+    return HttpResponse(response, status=200, content_type="text/json")
+
+
+def jsonusuario(request, resource):
+    try:
+        usuario = User.objects.get(username=resource)
+    except User.DoesNotExist:
+        template = get_template('error.html')
+        return HttpResponse(plantilla.render(), status=404)
+    template = get_template('json/canales_usuario.json')
+    elegidos = Elegidos.objects.filter(usuario=usuario)
+    c = RequestContext(request, {'usuario': usuario, 'elegidos': elegidos})
+    response = template.render(c)
+    return HttpResponse(response, status=200, content_type="text/json")
+
+
+def rss(request):
+    template = get_template('rss/canales_comentarios.rss')
+    comentarios = Comentarios.objects.all()
+    c = RequestContext(request, {'comentarios': comentarios})
+    response = template.render(c)
+    return HttpResponse(response, status=200, content_type="text/rss")
+
+
+@csrf_exempt
+def login_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect('/')
+    else:
+        return HttpResponseRedirect('/')
+
+
+@csrf_exempt
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+    return HttpResponseRedirect('/')
+
+
+@csrf_exempt
+def registro(request):
+    if request.method == 'GET':
+        formulario = "Introduzca los datos del usuario a registrar:<br>"
+        formulario += "<form class='register' method='POST' action='/registro'>"
+        formulario += "<table><tr><td><label for='username'>Usuario:"
+        formulario += " </label></td><td><input name='username'></td></tr><tr>"
+        formulario += "<td><label for='password'>Contraseña: </label></td>"
+        formulario += "<td><input name='password' type='password'></td></tr>"
+        formulario += "</table><input class='boton' type='submit' "
+        formulario += "value='Registrar'></form>"
+    elif request.method == 'POST':
+        formulario = ""
+        username = request.POST['username']
+        password = request.POST['password']
+        usuario = User.objects.create_user(username=username, password=password)
+        usuario.save()
+        return HttpResponseRedirect('/')
+    else:
+        template = get_template("terrafirma/error.html")
+        c = RequestContext(request, {'error': "Method not allowed"})
+        response = template.render(c)
+        return HttpResponse(response, status=405)
+    template = get_template("terrafirma/registro.html")
+    c = RequestContext(request, {'formulario': formulario})
+    response = template.render(c)
+    return HttpResponse(response, status=200)
+
+
+def about(request):
+    template = get_template('terrafirma/about.html')
+    c = RequestContext(request)
+    response = template.render(c)
+    return HttpResponse(response, status=200)
+
+
+def css(request):
+    if request.user.is_authenticated():
+        usuario = User.objects.get(username=request.user.username)
+        pagina_personal = PaginaUsuario.objects.get(usuario=usuario)
+        color = pagina_personal.color
+        size = pagina_personal.size + "px"
+        template = get_template("terrafirma/default.css")
+        c = Context({'size': size, 'color': color})
+        response = template.render(c)
+        return HttpResponse(response, content_type="text/css")
+    else:
+        template = get_template("terrafirma/default.css")
+        color = '#8C8C73'
+        size = '11px'
+        c = Context({'size': size, 'color': color})
+        response = template.render()
+    return HttpResponse(response, content_type="text/css")
