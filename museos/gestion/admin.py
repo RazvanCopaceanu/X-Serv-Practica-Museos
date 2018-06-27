@@ -1,14 +1,13 @@
 from django.contrib import admin
-from aparcamientos.models import Aparcamiento
-from aparcamientos.models import PaginaUsuario
-from aparcamientos.models import Comentarios
-from aparcamientos.models import Elegidos
-
 
 # Register your models here.
 
-admin.site.register(Aparcamiento)
+from gestion.models import Museo
+admin.site.register(Museo)
+from gestion.models import PaginaUsuario
 admin.site.register(PaginaUsuario)
+from gestion.models import Comentarios
 admin.site.register(Comentarios)
+from gestion.models import Elegidos
 admin.site.register(Elegidos)
 
