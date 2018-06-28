@@ -1,0 +1,21 @@
+{% extends "terrafirma/base.html" %}
+
+{% load staticfiles %}
+
+{% block menu %}
+<div id="menu">
+	<ul>
+		<li><a href="/">Inicio</a></li>
+		<li><a href="/museos">Todos</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="post">
+	<div class="header">
+		<h3>{{error|safe}}</h3>
+	</div>
+</div>
+{% endblock %}

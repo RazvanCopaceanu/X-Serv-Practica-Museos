@@ -1,0 +1,55 @@
+{% extends "terrafirma/base.html" %}
+
+{% load staticfiles %}
+
+{% block menu %}
+<div id="menu">
+	<ul>
+		<li><a href="/">Inicio</a></li>
+		<li><a href="/museos">Todos</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="post">
+	{% csrf_token %}
+	{% if user.is_authenticated %}
+        <form method='POST'>Introduce un comentario: <br>
+			<input type='text' name='Comentario'>
+        	<input type='submit' value='Enviar'>
+		</form>
+        <form method = 'POST'>
+			<button type='submit' name='Add'>Añadir a pagina personal
+			</button><br>
+		</form>
+	{% endif %}
+	<div class="header">
+		<h3>Datos del museo:</h3>
+	</div>
+	<div class="content">
+		Nombre: {{museo.nombre}} <br>
+	    Latitud: {{museo.latitud}} <br>
+	    Longitud: {{museo.longitud}} <br>
+	    Descripción: {{museo.descripcion}} <br>
+	    {% if museo.accesibilidad == 1 %}
+	        Accesible = Sí <br>
+	    {% else %}
+	        Accesible = No <br>
+		{% endif %}
+	    Barrio: {{museo.barrio}} <br>
+	    Distrito: {{museo.distrito}} <br>
+	    {% if museo.telefono != "" or museo.telefono != "S/T" or museo.telefono != "T/D" %}
+	        Teléfono: {{museo.telefono}} <br>
+		{% endif %}
+	    {% if museo.email != "" %}
+	        Email: {{museo.email}} <br>
+		{% endif %}
+		Comentarios: <br>
+			{% for comentario in comentarios %}
+				· {{comentario.texto}}<br>
+			{% endfor %}
+	</div>
+</div>
+{% endblock %}

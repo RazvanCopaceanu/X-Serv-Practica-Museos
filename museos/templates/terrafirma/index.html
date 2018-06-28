@@ -1,0 +1,30 @@
+{% extends "terrafirma/base.html" %}
+
+{% load staticfiles %}
+
+{% block main %}
+<div class="post">
+	<div class="header">
+		<h3>Lista de museos:</h3>
+	</div>
+		{{boton|safe}} <br>
+		{% for museo in museos %}
+			<div id="title">
+				<br><a href='{{museo.url}}'>{{museo.nombre}}</a><br>
+			</div>
+			{{museo.direccion}} <br>
+			<a href='/museos/{{museo.id}}'>Más información</a><br>
+		{% endfor %}
+		<br><iframe width="560" height="315" src="https://www.youtube.com/watch?v=WZ2p3blPRoA" frameborder="0" allowfullscreen></iframe>
+		<a href='/xml'>XML</a><br>
+		<a href='/json'>JSON</a><br>
+		<a href='/rss'>RSS</a><br>
+	</div>
+{% endblock %}
+
+{% block side %}
+<h3>Páginas personales</h3>
+<div class="content">
+	<p>{{Lateral|safe}}</p>
+</div>
+{% endblock %}

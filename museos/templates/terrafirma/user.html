@@ -1,0 +1,37 @@
+{% extends "terrafirma/base.html" %}
+
+{% load staticfiles %}
+
+{% block menu %}
+<div id="menu">
+	<ul>
+		<li><a href="/">Inicio</a></li>
+		<li><a href="/museos">Todos</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="post">
+	{{formulario|safe}}
+
+	<div class="header">
+		<h3>Lista de museos:</h3>
+		{{anterior|safe}}{{siguiente|safe}}
+	</div>
+	<div class="content">
+		{% for elegido in elegidos %}
+			<div id="title">
+				<br><a href='{{museo.url}}'>{{elegido.museo.nombre}}</a><br>
+			</div>
+		    {{elegido.museo.direccion}} <br>
+		    <a href='/museos/{{elegido.museo.id}}'>Más información</a><br>
+			Fecha : {{elegido.fecha}} <br>
+		{% endfor %}
+
+	</div>
+	<a href='/{{usuario}}/xml'>XML</a><br>
+	<a href='/{{usuario}}/json'>JSON</a><br>
+</div>
+{% endblock %}

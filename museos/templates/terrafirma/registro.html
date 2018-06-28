@@ -1,0 +1,17 @@
+{% extends "terrafirma/base.html" %}
+
+{% block menu %}
+<div id="menu">
+	<ul>
+		<li><a href="/">Inicio</a></li>
+		<li><a href="/museos">Todos</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="content">
+	{{formulario|safe}}
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "terrafirma/base.html" %}
+
+{% block menu %}
+<div id="menu">
+	<ul>
+		<li><a href="/">Inicio</a></li>
+		<li><a href="/museos">Todos</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="content">
+    <h2>Autor: Razvan Alexandru Copaceanu</h2></br>
+    <h1>Funcionamiento de la práctica:</h1>
+    <h2>Recurso /:</h2>
+    <p>Página principal de la práctica. Consta de un listado de museos
+	y otro con enlaces a páginas personales:
+	1. Muestra un listado de los cinco museos con más comentarios.
+	Si no hay 5 museos con comentarios, se muestran sólo los
+	que tienen comentarios. Para cada museo, incluye información
+	sobre:
+	• su nombre (que es un enlace que apunta a la url del museo en el portal esmadrid),
+	• su dirección,
+	• y un enlace, “Más información”, que apunta a la página del museo en la aplicación.
+	2. También se muestra un listado, en una columna lateral, con enlaces
+	a las páginas personales disponibles. Para cada página personal muestra
+	el tı́tulo que le haya dado su usuario (como un enlace a la página
+	personal en cuestión) y el nombre del usuario. Si a una página personal
+	aún no se le ha puesto tı́tulo, este tı́tulo es “Página de usuario”,
+	donde “usuario” es el identificador de usuario del usuario en cuestión.
+	3. Tambień se muestra un botón, que al pulsarlo se pasa a ver en todos
+	los listados los museos accesibles, y sólo estos. Si se vuelve a
+	pulsar, se vuelven a ver todos los museos.</p><br>
+
+    <h2>Recurso /usuario:</h2>
+    <p>Página personal del usuario en cuestión. En la parte principal,
+    se muestran de cinco en cinco los museos seleccionados por el usuario,
+    donde para cada museo se muestra la misma información que en la
+    página principal. Además, para cada uno se indica la fecha en la que fue
+    seleccionado por el usuario. Adicionalmente, si hay un usuario autenticado
+    y este se encuentra en su página personal, se le ofrece en el lateral dos
+    formularios: uno para que indique sus preferencias respecto al CSS (color
+    del fondo y tamaño de la letra) y otro para que elija un título para su
+    página.
+
+	Página personal de un usuario. Muestra los museos seleccionados
+	por ese usuario (si hay más de 5 deberı́a hay un enlace para mostrar los
+	5 siguientes y ası́ en adelante, siempre de 5 en 5). Para cada museo
+	se muestra la misma información que en la página principal. Además, para
+	cada museo se muestra la fecha en la que fue seleccionado por el usuario.</p><br>
+
+    <h2>Recurso /museos:</h2>
+    <p>Página con todos los museos. Para cada uno de ellos
+	aparece sólo el nombre y un enlace a su página. En la parte superior de la
+	página, existe un formulario que permite filtrar estos museos según
+	el distrito.</p><br>
+
+    <h1>Recurso /museos/id:</h1>
+    <p>Página de un museo en la aplicación. Muestra información del XML del
+	portal de datos abierto del Ayuntamiento de Madrid (latitud y longitud, la
+	descripción, si es accesible o no, el barrio y el distrito). 
+	Además, se muestran todos los comentarios que se hayan puesto
+	para este museo.</p><br>
+
+    <h2>Recurso /usuario/xml:</h2>
+    <p>Canal XML para los museos seleccionados por ese usuario.
+	El documento XML tiene una entrada para cada museo seleccionado por
+	el usuario, y  una estructura similar a la del fichero XML del portal
+	del Ayuntamiento.</p><br>
+
+    <h2>Recurso /about:</h2>
+    <p>Página con información en HTML indicando la autorı́a de la
+	práctica y explicando su funcionamiento.</p><br>
+
+</div>
+{% endblock %}
