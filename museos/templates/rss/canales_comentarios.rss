@@ -1,0 +1,14 @@
+<rss version="2.0">
+<channel>
+    <title>Comentarios</title>
+    <link>http://localhost:1234</link>
+    <description>Comentarios enviados para los museos</description>
+    {% for comentario in comentarios %}
+    <item>
+        <title>{{ comentario.museo.nombre }}</title>
+        <link>http://localhost:1234/museos/{{ comentario.museo.id }}</link>
+        <description>{{ comentario.texto }}</description>
+    </item>
+    {% endfor %}
+</channel>
+</rss>
