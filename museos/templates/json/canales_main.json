@@ -1,0 +1,29 @@
+{
+    "museos": {
+        "informacion": "Lista de museos más comentados",
+        {% for museo in museos %}
+        "museo":{
+			"NOMBRE": "{{ museo.nombre }}",
+			"DESCRIPCION-ENTIDAD": "{{ museo.descripcion }}",
+			"ACCESIBILIDAD": "{{ museo.accesibilidad }}",
+			"CONTENT-URL": "{{ museo.url }}",
+			"LOCALIZACION": {
+				"NOMBRE-VIA": "{{ museo.nombre_via }}",
+				"CLASE-VIAL": "{{ museo.clase_vial }}",
+				"LOCALIDAD": "{{ museo.localidad }}",
+				"PROVINCIA": "{{ museo.provincia }}",
+				"CODIGO-POSTAL": "{{ museo.codigo_postal }}",
+				"BARRIO": "{{ museo.barrio }}",
+				"DISTRITO": "{{ museo.distrito }}",
+				"COORDENADA-X": "{{ museo.coord_x }}",
+				"COORDENADA-Y": "{{ museo.coord_y }}",
+				"LATITUD": "{{ museo.latitud }}",
+				"LONGITUD": "{{ museo.longitud }}"
+			},
+			"DATOSCONTACTOS": {
+				"TELEFONO": "{{ museo.telefono }}",
+				"EMAIL": "{{ museo.email }}",
+			},
+        }{% endfor %}
+    }
+}

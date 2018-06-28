@@ -1,0 +1,29 @@
+{
+    "museos": {
+        "informacion": "Canal JSON de {{ usuario }}",
+        {% for elegido in elegidos %}
+        "museo":{
+			"NOMBRE": "{{ elegido.museo.nombre }}",
+			"DESCRIPCION-ENTIDAD": "{{ elegido.museo.descripcion }}",
+			"ACCESIBILIDAD": "{{ elegido.museo.accesibilidad }}",
+			"CONTENT-URL": "{{ elegido.museo.url }}",
+			"LOCALIZACION": {
+				"NOMBRE-VIA": "{{ elegido.museo.nombre_via }}",
+				"CLASE-VIAL": "{{ elegido.museo.clase_vial }}",
+				"LOCALIDAD": "{{ elegido.museo.localidad }}",
+				"PROVINCIA": "{{ elegido.museo.provincia }}",
+				"CODIGO-POSTAL": "{{ elegido.museo.codigo_postal }}",
+				"BARRIO": "{{ elegido.museo.barrio }}",
+				"DISTRITO": "{{ elegido.museo.distrito }}",
+				"COORDENADA-X": "{{ elegido.museo.coord_x }}",
+				"COORDENADA-Y": "{{ elegido.museo.coord_y }}",
+				"LATITUD": "{{ elegido.museo.latitud }}",
+				"LONGITUD": "{{ elegido.museo.longitud }}"
+			},
+			"DATOSCONTACTOS": {
+				"TELEFONO": "{{ elegido.museo.telefono }}",
+				"EMAIL": "{{ elegido.museo.email }}",
+			},
+        }{% endfor %}
+    }
+}
