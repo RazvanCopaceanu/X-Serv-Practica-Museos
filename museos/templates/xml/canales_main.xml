@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Contenidos>
+	<infoDataset>
+		<nombre>Lista de museos más comentados</nombre>
+	</infoDataset>
+	{% for museo in museos %}
+	<contenido>
+		<tipo>EntidadesYOrganismos</tipo>
+		<atributos idioma="es">
+			<atributo nombre="NOMBRE">{{ museo.nombre }}</atributo>
+			<atributo nombre="DESCRIPCION-ENTIDAD">{{ museo.descripcion }}</atributo>
+			<atributo nombre="ACCESIBILIDAD">{{ museo.accesibilidad }}</atributo>
+			<atributo nombre="CONTENT-URL">{{ museo.url }}</atributo>
+			<atributo nombre="LOCALIZACION">
+				<atributo nombre="NOMBRE-VIA">{{ museo.nombre_via }}</atributo>
+				<atributo nombre="CLASE-VIAL">{{ museo.clase_vial }}</atributo>
+				<atributo nombre="LOCALIDAD">{{ museo.localidad }}</atributo>
+				<atributo nombre="PROVINCIA">{{ museo.provincia }}</atributo>
+				<atributo nombre="CODIGO-POSTAL">{{ museo.codigo_postal }}</atributo>
+				<atributo nombre="BARRIO">{{ museo.barrio }}</atributo>
+				<atributo nombre="DISTRITO">{{ museo.distrito }}</atributo>
+				<atributo nombre="COORDENADA-X">{{ museo.coord_x }}</atributo>
+				<atributo nombre="COORDENADA-Y">{{ museo.coord_y }}</atributo>
+				<atributo nombre="LATITUD">{{ museo.latitud }}</atributo>
+				<atributo nombre="LONGITUD">{{ museo.longitud }}</atributo>
+			</atributo>
+			<atributo nombre="DATOSCONTACTOS">
+				<atributo nombre="TELEFONO">{{ museo.telefono }}</atributo>
+				<atributo nombre="EMAIL">{{ museo.email }}</atributo>
+			</atributo>
+			<atributo nombre="TIPO">/contenido/entidadesYorganismos/MuseosMadrid</atributo>
+		</atributos>
+	</contenido>
+	{% endfor %}
+</Contenidos>

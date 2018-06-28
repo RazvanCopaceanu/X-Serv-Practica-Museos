@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Contenidos>
+	<infoDataset>
+		<nombre>Canal XML de {{ usuario }}</nombre>
+	</infoDataset>
+	{% for elegido in elegidos %}
+	<contenido>
+		<tipo>EntidadesYOrganismos</tipo>
+		<atributos idioma="es">
+			<atributo nombre="NOMBRE">{{ elegido.museo.nombre }}</atributo>
+			<atributo nombre="DESCRIPCION-ENTIDAD">{{ elegido.museo.descripcion }}</atributo>
+			<atributo nombre="ACCESIBILIDAD">{{ elegido.museo.accesibilidad }}</atributo>
+			<atributo nombre="CONTENT-URL">{{ elegido.museo.url }}</atributo>
+			<atributo nombre="LOCALIZACION">
+				<atributo nombre="NOMBRE-VIA">{{ elegido.museo.nombre_via }}</atributo>
+				<atributo nombre="CLASE-VIAL">{{ elegido.museo.clase_vial }}</atributo>
+				<atributo nombre="LOCALIDAD">{{ elegido.museo.localidad }}</atributo>
+				<atributo nombre="PROVINCIA">{{ elegido.museo.provincia }}</atributo>
+				<atributo nombre="CODIGO-POSTAL">{{ elegido.museo.codigo_postal }}</atributo>
+				<atributo nombre="BARRIO">{{ elegido.museo.barrio }}</atributo>
+				<atributo nombre="DISTRITO">{{ elegido.museo.distrito }}</atributo>
+				<atributo nombre="COORDENADA-X">{{ elegido.museo.coord_x }}</atributo>
+				<atributo nombre="COORDENADA-Y">{{ elegido.museo.coord_y }}</atributo>
+				<atributo nombre="LATITUD">{{ elegido.museo.latitud }}</atributo>
+				<atributo nombre="LONGITUD">{{ elegido.museo.longitud }}</atributo>
+			</atributo>
+			<atributo nombre="DATOSCONTACTOS">
+				<atributo nombre="TELEFONO">{{ elegido.museo.telefono }}</atributo>
+				<atributo nombre="EMAIL">{{ elegido.museo.email }}</atributo>
+			</atributo>
+			<atributo nombre="TIPO">/contenido/entidadesYorganismos/MuseosMadrid</atributo>
+		</atributos>
+	</contenido>
+	{% endfor %}
+</Contenidos>
