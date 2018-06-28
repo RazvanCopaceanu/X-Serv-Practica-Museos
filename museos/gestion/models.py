@@ -22,6 +22,8 @@ class Museo(models.Model):
     telefono = models.CharField(max_length=200, default="")
     email = models.URLField(max_length=200, default="")
     n_coment = models.IntegerField(default=0)
+    def __str__(self):
+        return(self.nombre)
             
 
 
@@ -31,10 +33,11 @@ class PaginaUsuario(models.Model):
     color = models.CharField(max_length=200, default="")
     size = models.CharField(max_length=200, default="")
 
-
 class Comentarios(models.Model):
     museo = models.ForeignKey(Museo)
     texto = models.TextField(max_length=300, default="")
+    def __str__(self):
+        return "Comentario para: " + self.museo.nombre + "==>" + self.texto
 
 
 class Elegidos(models.Model):
