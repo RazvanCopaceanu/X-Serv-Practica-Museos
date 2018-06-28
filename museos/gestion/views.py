@@ -60,6 +60,7 @@ def parser():
         record.save()
 
 
+
 @csrf_exempt
 def main(request):
     template = get_template("terrafirma/index.html")
@@ -240,7 +241,7 @@ def user(request, resource):
             pagina_personal.size = size
             pagina_personal.save()
         elif opcion == 'next':
-            (elegidos, siguiente, anterior) = museosselegidos(request, resource)
+            (elegidos, siguiente, anterior) = museoselegidos(request, resource)
         elif opcion == 'previous':
             (elegidos, siguiente, anterior) = museoselegidos(request, resource)
     else:
